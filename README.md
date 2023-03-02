@@ -11,3 +11,7 @@ CUDA_VISIBLE_DEVICES=1 python replacegender.py dataset/ancient
 # step3 replace protogonist
 ```
 CUDA_VISIBLE_DEVICES=1 python replacepron.py dataset/ancient
+CUDA_VISIBLE_DEVICES=1 python replacepron.py dataset/potter
+CUDA_VISIBLE_DEVICES=1 python replacepron.py dataset/ponies
+CUDA_VISIBLE_DEVICES=1 python replacepron.py dataset/victorian
+CUDA_VISIBLE_DEVICES=1 python replacepron.py dataset/reddit

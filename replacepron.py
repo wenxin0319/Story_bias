@@ -49,7 +49,6 @@ def process_female(inputf, outputf):
         a.write(new_para)
     a.close()
 
-
 print("Male to female")
 input_ = f_name + str("/male_masked.txt")
 output_ = f_name + str("/result/m_to_f.txt")
@@ -66,7 +65,7 @@ output_ = f_name + str("/result/m_to_m.txt")
 process_male(input_, output_)
 
 print("Female to male")
-input_ = f_name + str("/male_masked.txt")
+input_ = f_name + str("/female_masked.txt")
 output_ = f_name + str("/result/f_to_m.txt")
 process_male(input_, output_)
 
