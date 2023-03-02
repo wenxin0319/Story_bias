@@ -15,8 +15,8 @@ def replace_by_male_names(para):
         words_ = "Protagonist" + chr(init + i) + "'s"
         # ipdb.set_trace()
         new_para = para.replace(word_, male_names[i], 1)
-        new_para = new_para.replace(words_, "her")
-        new_para = new_para.replace(word_, "she")
+        new_para = new_para.replace(words_, "his")
+        new_para = new_para.replace(word_, "he")
         para = new_para
     return new_para    
 
