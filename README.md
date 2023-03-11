@@ -4,6 +4,10 @@
 ### https://github.com/janelleshane/novel-first-lines-dataset
 download it and store in the "dataset" folder
 
+# standford-ner
+### https://nlp.stanford.edu/software/stanford-ner-4.2.0.zip
+download it and unzip and change name to the "stanford-ner" folder
+
 # step 1 split the stories into male and female group
 ## so in each folder we will have male.txt and female.txt
 ```
@@ -63,3 +67,5 @@ python read_story.py
 python emotion analysis.py
 python stat_test.py
 ```
+
+CUDA_VISIBLE_DEVICES=1 python replacegender.py result

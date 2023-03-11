@@ -8,24 +8,30 @@ model_engine = "text-davinci-002"
 file_name = sys.argv[1]
 folder_name = sys.argv[2]
 
+
 def generate_from_prompt_list(prompts, foldername):
     count = 85
     for prompt in prompts:
-        converted_prompt = "Write a story using '" + prompt + "' as the prompt."
-        completions = openai.Completion.create(engine=model_engine, prompt=converted_prompt, max_tokens=1024, n=1,stop=None,temperature=0.5)
+        converted_prompt = f"Write a story using '{prompt}' as the prompt."
+        completions = openai.Completion.create(
+            engine=model_engine,
+            prompt=converted_prompt,
+            max_tokens=1024,
+            n=1,
+            stop=None,
+            temperature=0.5
+        )
         message = completions.choices[0].text
-        filename = foldername+ '/' + str(count) + '.txt'
+        filename = f"{foldername}/{count}.txt"
         with open(filename, 'w') as f:
             f.write(message)
-            f.close()
         count += 1
+
 
 def read_prompts_from_file(filename):
     with open(filename) as f:
         lines = [line.rstrip() for line in f]
-        f.close()
     return lines
-
 
 
 prompts = read_prompts_from_file(file_name)

@@ -1,69 +1,73 @@
-
 import re
 from collections import defaultdict
-import ipdb
-import sys
-import os
 
-f_name = sys.argv[1]
 
-def replace_by_male_names(para):
-    male_names = ["Bob", "Dave", "Frank"]
+def replace_names(para, names, pronoun):
+    """
+    Replaces the names and pronouns in the given paragraph
+    with the given names and pronouns.
+
+    Args:
+    para (str): The paragraph to replace names and pronouns in.
+    names (list): The list of names to replace with.
+    pronoun (str): The pronoun to replace with.
+
+    Returns:
+    str: The paragraph with the names and pronouns replaced.
+    """
     init = 65
-    for i in range(0, 3):
-        word_ = "Protagonist" + chr(init + i)
-        words_ = "Protagonist" + chr(init + i) + "'s"
-        new_para = para.replace(word_, male_names[i], 1)
-        new_para = new_para.replace(words_, "his")
-        new_para = new_para.replace(word_, "he")
-        para = new_para
-    return new_para    
+    for i, name in enumerate(names):
+        word_ = f"Protagonist{chr(init + i)}"
+        words_ = f"Protagonist{chr(init + i)}'s"
+        para = para.replace(word_, name)
+        para = para.replace(words_, f"{pronoun}s")
+        para = para.replace(word_, pronoun)
+    return para
 
-def replace_by_female_names(para):
-    female_names = ["Alice", "Carol", "Elva"]
-    init = 65
-    for i in range(0, 3):
-        word_ = "Protagonist" + chr(init + i)
-        words_ = "Protagonist" + chr(init + i) + "'s"
-        # ipdb.set_trace()
-        new_para = para.replace(word_, female_names[i], 1)
-        new_para = new_para.replace(words_, "her")
-        new_para = new_para.replace(word_, "she")
-        para = new_para
-    return new_para    
+def process_names(inputf, outputf, names, pronoun):
+    """
+    Processes the given input file by replacing names and pronouns in the paragraphs
+    with the given names and pronouns, and writes the result to the output file.
 
-def process_male(inputf, outputf):
-    f = open(inputf, "r")
-    for para in f.readlines():
-        new_para = replace_by_male_names(para)
-        a = open(outputf, 'a')
-        a.write(new_para)
-    a.close()
+    Args:
+    inputf (str): The path to the input file.
+    outputf (str): The path to the output file.
+    names (list): The list of names to replace with.
+    pronoun (str): The pronoun to replace with.
+    """
+    with open(inputf, "r") as f, open(outputf, 'a') as a:
+        for para in f:
+            new_para = replace_names(para, names, pronoun)
+            a.write(new_para)
 
-def process_female(inputf, outputf):
-    f = open(inputf, "r")
-    for para in f.readlines():
-        new_para = replace_by_female_names(para)
-        a = open(outputf, 'a')
-        a.write(new_para)
-    a.close()
+input_dir = input("Enter the directory containing input files: ")
 
-print("Male to female")
-input_ = f_name + str("/male_masked.txt")
-output_ = f_name + str("/result/m_to_f.txt")
-process_female(input_, output_)
+# Male to female
+input_file = f"{input_dir}/male_masked.txt"
+output_file = f"{input_dir}/result/m_to_f.txt"
+names = ["Alice", "Carol", "Elva"]
+pronoun = "she"
+process_names(input_file, output_file, names, pronoun)
 
-print("Female to female")
-input_ = f_name + str("/female_masked.txt")
-output_ = f_name + str("/result/f_to_f.txt")
-process_female(input_, output_)
+# Female to female
+input_file = f"{input_dir}/female_masked.txt"
+output_file = f"{input_dir}/result/f_to_f.txt"
+names = ["Alice", "Carol", "Elva"]
+pronoun = "she"
+process_names(input_file, output_file, names, pronoun)
 
-print("Male to male")
-input_ = f_name + str("/male_masked.txt")
-output_ = f_name + str("/result/m_to_m.txt")
-process_male(input_, output_)
+# Male to male
+input_file = f"{input_dir}/male_masked.txt"
+output_file = f"{input_dir}/result/m_to_m.txt"
+names = ["Bob", "Dave", "Frank"]
+pronoun = "he"
+process_names(input_file, output_file, names, pronoun)
 
-print("Female to male")
-input_ = f_name + str("/female_masked.txt")
-output_ = f_name + str("/result/f_to_m.txt")
-process_male(input_, output_)
+# Female to male
+input_file = f"{input_dir}/female_masked.txt"
+output_file = f"{input_dir}/result/f_to_m.txt"
+names = ["Bob", "Dave", "Frank"]
+pronoun = "he"
+process_names(input_file, output_file, names, pronoun)
+
+print("Done")

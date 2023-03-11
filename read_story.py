@@ -1,4 +1,5 @@
-import os, glob
+import os
+import glob
 import re
 
 female_folder = ["ancient_f_to_f/", "ancient_m_to_f/", 
@@ -14,30 +15,22 @@ def read_stories(folder_list):
     stories = []
     for folder_path in folder_list:
         for filename in glob.glob(os.path.join(folder_path, '*.txt')):
-            with open(filename, 'r') as f:
-                text = f.read()
-                new_text = re.sub('\n', '', text)
-                # ipdb.set_trace()
-                stories.append(new_text)
+            with open(filename, 'r', encoding='utf-8') as f:
+                text = f.read().replace('\n', '')
+                stories.append(text)
     return stories
 
 female_stories = read_stories(female_folder)
 male_stories = read_stories(male_folder)
 
-print("Num of male stories: ", len(male_stories))
-print("Num of female stories: ", len(female_stories))
-# Num of male stories:  1601
-# Num of female stories:  1601
+print("Number of male stories:", len(male_stories))
+print("Number of female stories:", len(female_stories))
 
 with open('result/male_stories.txt', 'w', encoding='utf-8') as f:
-    for line in male_stories:
-        f.write(line)
-        f.write("\n")
+    f.write('\n'.join(male_stories))
 
 with open('result/female_stories.txt', 'w', encoding='utf-8') as f:
-    for line in female_stories:
-        f.write(line)
-        f.write("\n")
+    f.write('\n'.join(female_stories))
 
-print("Example male story: ", male_stories[0])
-print("Example female story: ", female_stories[0])
+print("Example male story:", male_stories[0])
+print("Example female story:", female_stories[0])
