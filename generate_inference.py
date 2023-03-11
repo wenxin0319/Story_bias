@@ -55,3 +55,12 @@ if __name__ == "__main__":
     for file_name in file_names:
         for mode in modes:
             get_dict(file_name, mode)
+    
+    file_names = ["result/male_masked_subj.txt", "result/male_two_and_above_subj.txt",
+                  "result/male_two_and_above_obj.txt"]
+    modes = ["xAttr", "xReact", "oReact"]
+
+    for file_name in file_names:
+        for mode in modes:
+            get_dict(file_name, mode)
+

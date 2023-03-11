@@ -10,14 +10,19 @@ The Stanford NER software used in this project can be found at: https://nlp.stan
 
 To use this software, download it, unzip it and change its name to the "stanford-ner" folder.
 
+# GoogleNews-vectors-negative300.bin.gz 
+The GoogleNews-vectors-negative300.bin.gz  used in this project can be found at: https://drive.google.com/open?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&authuser=0
+
+To use this software, download it, move it outside this folder.
+
 # step 1 split the stories into male and female group
 To split the stories into male and female groups, run the following commands:
 
 ```
-CUDA_VISIBLE_DEVICES=1 python Transfer.py dataset/ancient.txt dataset/ancient
-CUDA_VISIBLE_DEVICES=1 python Transfer.py dataset/potter.txt dataset/potter
-CUDA_VISIBLE_DEVICES=1 python Transfer.py dataset/ponies.txt dataset/ponies
-CUDA_VISIBLE_DEVICES=1 python Transfer.py dataset/victorian.txt dataset/victorian
+CUDA_VISIBLE_DEVICES=1 python transfer.py dataset/ancient.txt dataset/ancient
+CUDA_VISIBLE_DEVICES=1 python transfer.py dataset/potter.txt dataset/potter
+CUDA_VISIBLE_DEVICES=1 python transfer.py dataset/ponies.txt dataset/ponies
+CUDA_VISIBLE_DEVICES=1 python transfer.py dataset/victorian.txt dataset/victorian
 ```
 This will create a "male.txt" and "female.txt" file in each of the four subfolders.
 
@@ -96,3 +101,37 @@ After running the emotion analysis, run the statistical test script by executing
 ```
 python stat_test.py
 ```
+# step7 to step11 are analysis implicit gender bias
+# step7 Extract Stories with More Than Two Characters
+In this step, we extracted stories that have more than two characters. This was done to check the effect of the subject and object in the story. To run the script for this step, use the following command:
+
+```
+python extract_two.py 
+```
+
+# step8 Classify sentences according to protagonist
+In this step, sentences were classified according to the protagonist. To run the script for this step, use the following command:
+```
+python find_subject.py 
+```
+
+# step9 Get COMeT outputs
+In this step, we obtained COMeT outputs. To run the script for this step, use the following command
+```
+python generate_inference.py
+```
+
+# step10 Calculate Valence, arousal scores 
+In this step, valence and arousal scores were calculated. To run the script for this step, use the following command:
+```
+python comet-nrc.py
+```
+
+# step11 Calculate Intellect, Appearance, Power scores
+In this step, intellect, appearance, and power scores were calculated. To run the script for this step, use the following command:
+```
+python calculate_score.py
+```
+Acknowledgement:
+      
+We borrowed some code from this repository: https://github.com/tenghaohuang/Uncover_implicit_bias
