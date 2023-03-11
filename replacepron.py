@@ -13,7 +13,6 @@ def replace_by_male_names(para):
     for i in range(0, 3):
         word_ = "Protagonist" + chr(init + i)
         words_ = "Protagonist" + chr(init + i) + "'s"
-        # ipdb.set_trace()
         new_para = para.replace(word_, male_names[i], 1)
         new_para = new_para.replace(words_, "his")
         new_para = new_para.replace(word_, "he")
@@ -68,12 +67,3 @@ print("Female to male")
 input_ = f_name + str("/female_masked.txt")
 output_ = f_name + str("/result/f_to_m.txt")
 process_male(input_, output_)
-
-
-# para = "ProtagonistA was one of the most popular women of ProtagonistA's day ."
-# new_para = replace_by_male_names(para)
-# print(new_para)
-
-# para = "This is a story about a man who must be kept from knowing , because it would kill ProtagonistA , that the man who killed ProtagonistB long before ProtagonistB , could be alive and always be looking for ProtagonistB . "
-# new_para = replace_by_male_names(para)
-# print(new_para)
