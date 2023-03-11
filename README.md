@@ -1,43 +1,58 @@
 # Story_bias
 
 # dataset
-### https://github.com/janelleshane/novel-first-lines-dataset
-download it and store in the "dataset" folder
+The dataset used in this project can be found at: https://github.com/janelleshane/novel-first-lines-dataset
+
+To use this dataset, download it and store it in the "dataset" folde
 
 # standford-ner
-### https://nlp.stanford.edu/software/stanford-ner-4.2.0.zip
-download it and unzip and change name to the "stanford-ner" folder
+The Stanford NER software used in this project can be found at: https://nlp.stanford.edu/software/stanford-ner-4.2.0.zip
+
+To use this software, download it, unzip it and change its name to the "stanford-ner" folder.
 
 # step 1 split the stories into male and female group
-## so in each folder we will have male.txt and female.txt
+To split the stories into male and female groups, run the following commands:
+
 ```
 CUDA_VISIBLE_DEVICES=1 python Transfer.py dataset/ancient.txt dataset/ancient
 CUDA_VISIBLE_DEVICES=1 python Transfer.py dataset/potter.txt dataset/potter
 CUDA_VISIBLE_DEVICES=1 python Transfer.py dataset/ponies.txt dataset/ponies
 CUDA_VISIBLE_DEVICES=1 python Transfer.py dataset/victorian.txt dataset/victorian
 ```
+This will create a "male.txt" and "female.txt" file in each of the four subfolders.
 
-# step 2 Anonymization replace every character with the ProtagonistA,B,C...
-## so in each folder we will have male_mask.txt and female_mask.txt
+# step 2 Anonymization
+To anonymize the stories, replace every character with the ProtagonistA, ProtagonistB, ProtagonistC, etc.
+
+To do this, run the following commands:
+
 ```
 CUDA_VISIBLE_DEVICES=1 python replacegender.py dataset/ancient
 CUDA_VISIBLE_DEVICES=1 python replacegender.py dataset/potter
 CUDA_VISIBLE_DEVICES=1 python replacegender.py dataset/ponies
 CUDA_VISIBLE_DEVICES=1 python replacegender.py dataset/victorian
 ```
+This will create a "male_mask.txt" and "female_mask.txt" file in each of the four subfolders.
 
-# step3 replace protogonist with our signed character
-### we replace each story for male and female version, male's name are "Bob", "Dave", "Frank", female's name are "Alice", "Carol", "Elva"
-### so in each folder we will have f_to_m.txt, f_to_f.txt, m_to_m.txt, m_to_f.txt
+# step3 Replace protagonists with signed characters
+To replace each story for male and female versions, use "Bob", "Dave", and "Frank" for male names and "Alice", "Carol", and "Elva" for female names.
+
+To do this, run the following commands:
+
 ```
 CUDA_VISIBLE_DEVICES=1 python replacepron.py dataset/ancient
 CUDA_VISIBLE_DEVICES=1 python replacepron.py dataset/potter
 CUDA_VISIBLE_DEVICES=1 python replacepron.py dataset/ponies
 CUDA_VISIBLE_DEVICES=1 python replacepron.py dataset/victorian
 ```
+This will create "f_to_m.txt", "f_to_f.txt", "m_to_m.txt", and "m_to_f.txt" files in each of the four subfolders.
 
-# step4 use gpt3 tools, and for each story, we only select the first sentence as prompt to generate story
-### for the origin dataset, our generated stories, and standford-ner tools we use, we are store in the https://drive.google.com/file/d/1ULq2fAbgKjtRseRwDYzjDWNWsTwxYC_5/view?usp=sharing
+# step4 Use GPT-3 tools to generate stories
+
+To generate stories, use GPT-3 tools to select only the first sentence of each story as the prompt.
+
+To do this, run the following commands:
+
 ```
 CUDA_VISIBLE_DEVICES=1 python generation.py dataset/ancient/result/f_to_m.txt generated_stories/ancient_f_to_m
 CUDA_VISIBLE_DEVICES=1 python generation.py dataset/ancient/result/f_to_f.txt generated_stories/ancient_f_to_f
@@ -56,16 +71,28 @@ CUDA_VISIBLE_DEVICES=1 python generation.py dataset/victorian/result/f_to_f.txt 
 CUDA_VISIBLE_DEVICES=1 python generation.py dataset/victorian/result/m_to_m.txt generated_stories/victorian_m_to_m
 CUDA_VISIBLE_DEVICES=1 python generation.py dataset/victorian/result/m_to_f.txt generated_stories/victorian_m_to_f
 ```
+For the original dataset, our generated stories, and the Stanford NER tools we used, please check https://drive.google.com/file/d/1ULq2fAbgKjtRseRwDYzjDWNWsTwxYC_5/view?usp=sharing. 
 
-# step5 combine the generated_stories, for male and female, we both for 1601 stories
+# step5 Combine the Generated Stories
+Combine the generated stories for male and female into one file containing 1601 stories.
+
+To run the script, execute the following command in the terminal:
+
 ```
 python read_story.py
 ```
 
-# step6 emotion_analysis
+# step6 Emotion Analysis
+Perform emotion analysis on the combined stories.
+
+To run the emotion analysis script, execute the following command in the terminal:
+
 ```
 python emotion analysis.py
-python stat_test.py
 ```
 
-CUDA_VISIBLE_DEVICES=1 python replacegender.py result
+After running the emotion analysis, run the statistical test script by executing the following command in the terminal:
+
+```
+python stat_test.py
+```
