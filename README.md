@@ -126,11 +126,20 @@ In this step, valence and arousal scores were calculated. To run the script for 
 ```
 python comet-nrc.py
 ```
+After calculating Valence, arousal scores, run the statistical test script by executing the following command in the terminal:
 
+```
+python plot_results.py
+```
 # step11 Calculate Intellect, Appearance, Power scores
 In this step, intellect, appearance, and power scores were calculated. To run the script for this step, use the following command:
 ```
 python calculate_score.py
+```
+After calculating Intellect, Appearance, Power scores, run the statistical test script by executing the following command in the terminal:
+
+```
+python plot_result_intel.py
 ```
 Acknowledgement:
       

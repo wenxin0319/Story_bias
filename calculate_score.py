@@ -50,25 +50,12 @@ power = get_words(power)
 weak = ['submissive', 'weak', 'dependent', 'afraid']
 weak = get_words(weak)
 
-print("loaded")
-
-file_list = [
-    "male_masked_subj.txt_at_dict", 
-    "female_masked_subj.txt_at_dict", 
-    "male_masked_subj.txt_xr_dict", 
-    "female_masked_subj.txt_xr_dict", 
-    "male_two_and_above_obj.txt_or_dict", 
-    "female_two_and_above_obj.txt_or_dict", 
-    "male_two_and_above_subj.txt_or_dict", 
-    "female_two_and_above_subj.txt_or_dict"
-]
-
 def load_file(file_path):
     with open(file_path, 'rb') as f:
         words = pickle.load(f)
     return words
 
-def calculateSubspace(A, B, model):
+def calculateSubspace(A, B):
     A_vecs = [model.wv[i] for i in A if i in model]
     B_vecs = [model.wv[i] for i in B if i in model]
 
@@ -82,12 +69,12 @@ def calculateSubspace(A, B, model):
 
     return suma / len(A) - sumb / len(B)
 
-def compute(words_clusters, title, model):
+def compute(words_clusters, title):
     intel_sum = []
     appear_sum = []
     power_sum = []
 
-    power_subspace = calculateSubspace(power, weak, model)
+    power_subspace = calculateSubspace(power, weak)
 
     for x in words_clusters:
         if x not in model:
@@ -109,11 +96,6 @@ def compute(words_clusters, title, model):
 
     print("Dumping results")
 
-
-    # Create directory if it does not exist
-    if not os.path.exists(title):
-        os.makedirs(title)
-
     # Save variables to files
     file_names = [
         (title + "_intellect.pkl", intel_sum),
@@ -128,13 +110,9 @@ def compute(words_clusters, title, model):
         with open(file_name, "wb") as f:
             pickle.dump(variable, f)
 
-        return [np.median(stats.zscore(intel_sum)), 
-                np.median(stats.zscore(appear_sum)), 
-                np.median(stats.zscore(power_sum))]
-
-
-def get_stats(lst):
-    return np.max(lst), np.min(lst), np.percentile(lst, 25), np.percentile(lst, 75), np.median(lst)
+    return [np.median(stats.zscore(intel_sum)), 
+            np.median(stats.zscore(appear_sum)), 
+            np.median(stats.zscore(power_sum))]
 
 def get_lexicon_score(file1, file2):
     male_words = load_file(file1)
@@ -161,30 +139,11 @@ def get_lexicon_score(file1, file2):
 
     m = list(filter(lambda a: a != "none", m))
     f = list(filter(lambda a: a != "none", f))
-    ipdb.set_trace()
 
-    return get_stats(m), get_stats(f)
+    return compute(m, "male"), compute(f, "female")
 
-# def get_lexicon_score_b5(f1, f2):
-#     male = load_file(f1)
-#     female = load_file(f2)
-
-#     mm = set([word for line in male for word in line if word != 'none'])
-#     ff = set([word for line in female for word in line if word != 'none'])
-
-#     m = list(mm)
-#     f = list(ff)
-
-#     m_score = compute(m, f"../0515replotting/{f1.split('/')[-2]}/{f1.split('/')[-1].split('.')[0]}")
-#     f_score = compute(f, f"../0515replotting/{f2.split('/')[-2]}/{f2.split('/')[-1].split('.')[0]}")
-
-#     return m_score, f_score
-
-
-directs = ["./result/"]
-result = []
-
-for direct in directs:
-    result.append(get_lexicon_score(f"{direct}male_masked_subj.txt_at_dict", f"{direct}female_masked_subj.txt_at_dict"))
+result = get_lexicon_score("./result/male_masked_subj.txt_at_dict", "./result/female_masked_subj.txt_at_dict")
 
 print(result)
+
+#[([0.11592887413971524, 0.08072345087352319, 0.02575491344393488], [0.14751535049359316, 0.03807869180845424, 0.04173402569937375])]

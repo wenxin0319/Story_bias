@@ -32,19 +32,19 @@ for dimension in ['valence', 'arousal', 'dominance']:
     # loop through each type
     for t in ['at', 'xr', 'or_obj', 'or_subj']:
         data = results[(results['Dimension']==dimension) & (results['Type']==t)]
-        ax = sns.catplot(x="Gender", y="Median", hue="Gender", data=data, kind="point")
+        ax = sns.catplot(x="Gender", y="Median", hue="Gender", data=data, kind="point", legend=True)
 
         ax.fig.suptitle(f"{t.upper()} {dimension.capitalize()} by Gender")
         ax.set_ylabels(f"Median {dimension.capitalize()}")
         plt.savefig(f"./pics/{t}_{dimension}_median_by_gender.png")
 
-        ax = sns.catplot(x="Gender", y="Mean", hue="Gender", data=data, kind="point")
+        ax = sns.catplot(x="Gender", y="Mean", hue="Gender", data=data, kind="point", legend=True)
 
         ax.fig.suptitle(f"{t.upper()} {dimension.capitalize()} by Gender")
         ax.set_ylabels(f"Mean {dimension.capitalize()}")
         plt.savefig(f"./pics/{t}_{dimension}_mean_by_gender.png")
 
-        ax = sns.catplot(x="Gender", y="CI", hue="Gender", data=data, kind="point")
+        ax = sns.catplot(x="Gender", y="CI", hue="Gender", data=data, kind="point", legend=True)
 
         ax.fig.suptitle(f"{t.upper()} {dimension.capitalize()} by Gender")
         ax.set_ylabels(f"CI {dimension.capitalize()}")
