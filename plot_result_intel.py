@@ -8,8 +8,7 @@ from matplotlib.patches import Patch
 df = pd.DataFrame({
     'gender': ['male', 'male', 'male', 'female', 'female', 'female'],
     'attribute': ['Intellect', 'Appearance', 'Power'] * 2,
-    'score': [0.11592887413971524, 0.08072345087352319, 0.025754913207865597,
-              0.14751535049359316, 0.03807869180845424, 0.041734025328270315]
+    'score': [0.14751535049359316, 0.03807869180845424, 0.041734025328270315,0.11592887413971524, 0.08072345087352319, 0.025754913207865597]
 })
 
 # Create a categorical plot for each attribute
