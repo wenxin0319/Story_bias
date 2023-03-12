@@ -136,12 +136,7 @@ In this step, intellect, appearance, and power scores were calculated. To run th
 ```
 python calculate_score.py
 ```
-<<<<<<< HEAD
 After calculating Intellect, Appearance, Power scores, run the statistical test script by executing the following command, store in pics2 folder
-=======
-After calculating Intellect, Appearance, Power scores, run the statistical test script by executing the following command in the terminal:
->>>>>>> 885cf4d40d1af5edc455aa3ad6aac444ec8338f9
-
 ```
 python plot_result_intel.py
 ```
