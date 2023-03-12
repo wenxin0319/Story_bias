@@ -140,6 +140,17 @@ After calculating Intellect, Appearance, Power scores, run the statistical test 
 ```
 python plot_result_intel.py
 ```
+
+# step12 analysis motivation
+In this step, we use sentiment analysis tools to analyze the motivations of male characters from a male perspective and the motivations of female characters from a female perspective in the generated stories, and count co-occurrence keywords
+```
+python motivation.py
+```
+After counting co-occurrence keywords, run the draw plots script by executing the following command, store in pics2 folder
+```
+python draw_results_motivation.py
+```
+
 Acknowledgement:
       
 We borrowed some code from this repository: https://github.com/tenghaohuang/Uncover_implicit_bias
